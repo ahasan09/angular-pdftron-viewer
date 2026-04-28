@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  lint-test-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Install Firefox
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y firefox
+
+      - name: Test
+        run: npm test -- --watch=false --browsers=FirefoxHeadless
+
+      - name: Build
+        run: npm run build
