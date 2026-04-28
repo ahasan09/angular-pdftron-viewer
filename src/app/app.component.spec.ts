@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 @Component({ selector: 'app-webviewer', standalone: true, template: '' })
-class WebviewerStub {
+class WebviewerStubComponent {
   @Input() docPath = '';
 }
 
@@ -16,7 +16,7 @@ describe('AppComponent', () => {
       imports: [AppComponent],
     })
       .overrideComponent(AppComponent, {
-        set: { imports: [WebviewerStub] },
+        set: { imports: [WebviewerStubComponent] },
       })
       .compileComponents();
 
